@@ -1,0 +1,19 @@
+.modal__content_type_image {
+  padding: 0;
+  overflow: hidden;
+  max-width: 498px;
+}
+
+.modal__footer {
+  margin-left: 32px;
+  margin-bottom: 32px;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+}
+
+.modal__caption {
+  margin: 20px auto 12px auto;
+}
