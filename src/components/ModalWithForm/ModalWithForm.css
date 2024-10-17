@@ -27,6 +27,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: contain;
+  cursor: pointer;
 }
 
 .modal__title {
@@ -77,6 +78,11 @@
 
 .modal__submit {
   width: 124px;
+  cursor: pointer;
+}
+
+.modal__submit:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal__label {

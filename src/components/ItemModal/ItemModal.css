@@ -2,6 +2,7 @@
   padding: 0;
   overflow: hidden;
   max-width: 498px;
+  position: relative;
 }
 
 .modal__footer {
@@ -16,4 +17,20 @@
 
 .modal__caption {
   margin: 20px auto 12px auto;
+}
+
+.modal__delete {
+  position: absolute;
+  bottom: 90px;
+  right: 32px;
+  margin: 0;
+  background: none;
+  color: rgba(255, 77, 0, 1);
+  border: none;
+  cursor: pointer;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
 }

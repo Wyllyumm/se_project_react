@@ -47,62 +47,62 @@ export const APIkey = "0fffee6f38c3630c383305b0f639ac01";
 export const weatherOptions = [
   {
     day: true,
-    condition: "clear",
+    condition: "Clear",
     url: new URL("../assets/day/wtwrSunny.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "clear",
+    condition: "Clear",
     url: new URL("../assets/day/wtwrNight.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: "clouds",
+    condition: "Clouds",
     url: new URL("../assets/day/wtwrCloudyDay.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "clouds",
+    condition: "Clouds",
     url: new URL("../assets/night/wtwrCloudyNight.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: "rain",
+    condition: "Rain",
     url: new URL("../assets/day/wtwrRainDay.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "rain",
+    condition: "Rain",
     url: new URL("../assets/night/wtwrRainNight.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: "thunderstorm",
+    condition: "Thunderstorm",
     url: new URL("../assets/day/wtwrStormDay.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "thunderstorm",
+    condition: "Thunderstorm",
     url: new URL("../assets/night/wtwrStormNight.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: "snow",
+    condition: "Snow",
     url: new URL("../assets/day/wtwrSnowDay.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "snow",
+    condition: "Snow",
     url: new URL("../assets/night/wtwrSnowNight.png", import.meta.url).href,
   },
   {
     day: true,
-    condition: "fog",
+    condition: "Fog",
     url: new URL("../assets/day/wtwrFogDay.png", import.meta.url).href,
   },
   {
     day: false,
-    condition: "fog",
+    condition: "Fog",
     url: new URL("../assets/night/wtwrFogNight.png", import.meta.url).href,
   },
 ];
