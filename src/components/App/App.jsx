@@ -9,7 +9,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { currentTemperatureUnitContext } from "../Contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../Contexts/CurrentTemperatureUnitContext";
 import Footer from "../Footer/Footer";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { getItems, addClothes, deleteClothes } from "../../utils/Api";
@@ -94,7 +94,7 @@ function App() {
 
   return (
     <div className="page">
-      <currentTemperatureUnitContext.Provider
+      <CurrentTemperatureUnitContext.Provider
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <div className="page__content">
@@ -140,7 +140,7 @@ function App() {
             handleDeleteClick={handleDeleteClick}
           />
         )}
-      </currentTemperatureUnitContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 }

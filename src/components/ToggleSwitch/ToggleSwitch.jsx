@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./ToggleSwitch.css";
-import { currentTemperatureUnitContext } from "../Contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../Contexts/CurrentTemperatureUnitContext";
 
 const ToggleSwitch = () => {
   /* const [currentTemperatureUnit, handleToggleSwitchChange] = useState("F");
@@ -11,7 +11,7 @@ const ToggleSwitch = () => {
   };*/
 
   const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
-    currentTemperatureUnitContext
+    CurrentTemperatureUnitContext
   );
   console.log(currentTemperatureUnit);
   return (
