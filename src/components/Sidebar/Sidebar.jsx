@@ -7,7 +7,7 @@ function Sidebar({ handleUserSignout }) {
   const { currentUser } = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
-      {currentUser.avatatar ? (
+      {currentUser.avatar ? (
         <img
           src={currentUser?.avatar || avatar}
           alt="User Avatar"

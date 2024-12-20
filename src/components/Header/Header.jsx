@@ -14,7 +14,7 @@ function Header({
   handleLoginClick,
   handleRegisterClick,
 }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -45,7 +45,7 @@ function Header({
                 <p className="header__username">{currentUser?.name}</p>
                 {currentUser.avatar ? (
                   <img
-                    src={currentUser?.avatar || avatar}
+                    src={currentUser?.avatar}
                     alt="User Avatar"
                     className="header__avatar"
                   />

@@ -40,7 +40,12 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ email: "", password: "" });
+  const [currentUser, setCurrentUser] = useState({
+    email: "",
+    password: "",
+    avatar: "",
+    name: "",
+  });
   const navigate = useNavigate();
 
   const handleCardClick = (card) => {
@@ -54,7 +59,6 @@ function App() {
 
   const handleLoginClick = () => {
     setActiveModal("login");
-    /*handleLogin();*/
   };
 
   const handleSignupClick = () => {
@@ -116,22 +120,23 @@ function App() {
       });
   };
 
-  const handleLogin = ({ email, password }, resetUserForm) => {
+  const handleLogin = ({ email, password, name, avatar }, resetUserForm) => {
     if (!email || !password) {
       return;
     }
-    /*setIsLoading(true); */
+    setIsLoading(true);
     auth
-      .userSignin(email, password)
+      .userSignin({ email, password })
+
       .then((res) => {
-        if (res.token) {
-          setToken(res.jwt);
-          setCurrentUser(res);
-          setIsLoggedIn(true);
-          closeActiveModal();
-          resetUserForm();
-          navigate("/profile");
-        }
+        setToken(res.token);
+        setIsLoggedIn(true);
+        auth.getUserInfo(res.token).then((res) => {
+          setCurrentUser({ email, password, name, avatar });
+        });
+        closeActiveModal();
+        resetUserForm();
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
@@ -139,7 +144,7 @@ function App() {
   };
 
   const handleSignup = ({ name, avatar, email, password }) => {
-    auth.userSignUp(name, avatar, email, password).then(() => {
+    auth.userSignUp({ name, avatar, email, password }).then(() => {
       handleLogin({ email, password });
     });
   };
@@ -184,7 +189,8 @@ function App() {
     if (!checkToken) {
       return;
     }
-    getUserInfo(checkToken)
+    auth
+      .getUserInfo(checkToken)
       .then(({ username, email }) => {
         setCurrentUser({ username, email });
         setIsLoggedIn(true);

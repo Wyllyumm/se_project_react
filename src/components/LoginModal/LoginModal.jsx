@@ -29,7 +29,8 @@ const LoginModal = ({ onClose, isOpen, handleLogin }) => {
   };
 
   function resetUserForm() {
-    setData("");
+    setName("");
+    setEmail("");
   }
 
   const handleUserSubmit = (e) => {

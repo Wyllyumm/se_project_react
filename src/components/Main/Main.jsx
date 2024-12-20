@@ -13,6 +13,7 @@ function Main({ weatherData, handleCardClick, clothingItems, handleLike }) {
   const defaultClothes = clothingItems.filter((item) => {
     return item.weather === weatherData.type || weatherData.type === "";
   });
+  console.log(clothingItems);
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
