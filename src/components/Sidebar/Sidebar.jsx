@@ -1,11 +1,37 @@
+import { useContext } from "react";
 import avatar from "../../assets/wtwrAvatar.svg";
 import "./Sidebar.css";
+import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
-function Sidebar() {
+function Sidebar({ handleUserSignout }) {
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
-      <img className="sidebar__avatar" src={avatar} alt="Terrence Tegegne" />
-      <p className="sidebar__username">Terrance Tegegne</p>
+      {currentUser.avatatar ? (
+        <img
+          src={currentUser?.avatar || avatar}
+          alt="User Avatar"
+          className="header__avatar"
+        />
+      ) : (
+        <div className="header__avatar-null">
+          {currentUser.name.charAt(0).toUpperCase()}
+        </div>
+      )}
+      <p className="sidebar__username">{currentUser?.name}</p>
+      <button
+        /*onClick={handleEditModal}*/ type="button"
+        className="sidebar__user-edit"
+      >
+        Change profile data
+      </button>
+      <button
+        onClick={handleUserSignout}
+        type="button"
+        className="sidebar__user-signout"
+      >
+        Log out
+      </button>
     </div>
   );
 }

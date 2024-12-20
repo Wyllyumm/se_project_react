@@ -2,11 +2,16 @@ import Sidebar from "../Sidebar/Sidebar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 import "./Profile.css";
 
-function Profile({ handleCardClick, handleAddClick, clothingItems }) {
+function Profile({
+  handleCardClick,
+  handleAddClick,
+  clothingItems,
+  handleUserSignout,
+}) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <Sidebar />
+        <Sidebar handleUserSignout={handleUserSignout} />
       </section>
       <section className="profile__clothes">
         <ClothesSection

@@ -10,13 +10,20 @@ const checkResponse = (res) => {
 };
 
 function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
+  return fetch(`${baseUrl}/items`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
 }
 
 function addClothes({ name, weather, imageUrl }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ name, weather, imageUrl }),
   }).then(checkResponse);
 }
@@ -24,8 +31,31 @@ function addClothes({ name, weather, imageUrl }) {
 function deleteClothes(_id) {
   return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   }).then(checkResponse);
 }
 
-export { getItems, addClothes, deleteClothes };
+function addCardLike(_id, token) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+function removeCardLike(_id, token) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+export { getItems, addClothes, deleteClothes, addCardLike, removeCardLike };

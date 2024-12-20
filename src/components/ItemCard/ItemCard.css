@@ -15,3 +15,7 @@
 .card__image {
   width: 100%;
 }
+
+.card__like-btn {
+  background-image: url("../../assets/closebtn.svg");
+}
