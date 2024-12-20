@@ -1,10 +1,16 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
+
 import "./ItemCard.css";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
-  /*const isLiked = item.likes.some((id) => id === currentUser._id);
-  /*const itemLikeButtonClassName = `card__like-btn ${
+  const { currentUser } = useContext(CurrentUserContext);
+
+  /*const isLiked = item.likes.some((id) => id === currentUser?._id);*/
+  const isOwner = item.owner === currentUser?._id;
+  const itemLikeButtonClassName = `card__like-btn ${
     isOwner ? "" : "card__like-btn_hidden"
-  }`; */
+  }`;
   const handleCardClick = () => {
     onCardClick(item);
   };
@@ -22,7 +28,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
         className="card__image"
       />
-      <button className="card__like-btn"></button>
+      <button className={itemLikeButtonClassName}></button>
     </li>
   );
 }

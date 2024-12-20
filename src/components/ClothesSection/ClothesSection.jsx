@@ -5,9 +5,15 @@ import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
-function ClothesSection({ handleCardClick, handleAddClick, clothingItems }) {
-  const { currentUser } = useContext(CurrentUserContext)?._id;
-  const ownerItems = clothingItems.filter((item) => item.owner === currentUser);
+function ClothesSection({
+  handleCardClick,
+  handleAddClick,
+  clothingItems = [],
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
+  const ownerItems = clothingItems.filter(
+    (item) => item.owner === currentUser?._id
+  );
 
   return (
     <div className="clothes-section">
@@ -18,19 +24,18 @@ function ClothesSection({ handleCardClick, handleAddClick, clothingItems }) {
         </button>
       </div>
       <ul className="clothes-section__items">
-        {ownerItems.length > 0 ? (
+        {
+          /*ownerItems.length > 0 ? (*/
           ownerItems.map((item) => {
-            /*return ( */
-            <ItemCard
-              key={item._id}
-              item={item}
-              onCardClick={handleCardClick}
-            />;
-            /* );*/
+            return (
+              <ItemCard
+                key={item._id || item.id}
+                item={item}
+                onCardClick={handleCardClick}
+              />
+            );
           })
-        ) : (
-          <p>No Items Added</p>
-        )}
+        }
       </ul>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import "./App.css";
@@ -20,12 +20,18 @@ import {
   addCardLike,
   removeCardLike,
 } from "../../utils/Api";
-import { userSignin, userSignUp, getUserInfo } from "../../utils/auth";
+import {
+  userSignin,
+  userSignUp,
+  getUserInfo,
+  userEdit,
+} from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
 import ProtectedRoute from "./ProtectedRoute";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -63,6 +69,10 @@ function App() {
 
   const handleSignupClick = () => {
     setActiveModal("registerModal");
+  };
+
+  const handleEditClick = () => {
+    setActiveModal("editProfileModal");
   };
 
   const handleDeleteClick = () => {
@@ -131,22 +141,39 @@ function App() {
       .then((res) => {
         setToken(res.token);
         setIsLoggedIn(true);
-        auth.getUserInfo(res.token).then((res) => {
-          setCurrentUser({ email, password, name, avatar });
+        auth.getUserInfo(res.token).then((user) => {
+          setCurrentUser({
+            name: user.name,
+            /*avatar: user.avatar, */
+            email: user.email,
+          });
         });
         closeActiveModal();
         resetUserForm();
-        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
       });
+    navigate("/profile");
   };
 
   const handleSignup = ({ name, avatar, email, password }) => {
     auth.userSignUp({ name, avatar, email, password }).then(() => {
       handleLogin({ email, password });
     });
+  };
+
+  const handleEditProfile = ({ name, avatar }) => {
+    const token = getToken();
+    auth
+      .userEdit({ name, avatar }, token)
+      .then((res) => {
+        setCurrentUser({ ...currentUser, ...res });
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleUserSignout = () => {
@@ -189,10 +216,11 @@ function App() {
     if (!checkToken) {
       return;
     }
+
     auth
       .getUserInfo(checkToken)
-      .then(({ username, email }) => {
-        setCurrentUser({ username, email });
+      .then((res) => {
+        setCurrentUser(res);
         setIsLoggedIn(true);
       })
       .catch(() => setIsLoggedIn(false));
@@ -228,14 +256,15 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Profile
-                      handleCardClick={handleCardClick}
-                      handleAddClick={handleAddClick}
-                      clothingItems={clothingItems}
-                      handleUserSignout={handleUserSignout}
-                    />
-                  </ProtectedRoute>
+                  /*<ProtectedRoute isLoggedIn={isLoggedIn}> */
+                  <Profile
+                    handleCardClick={handleCardClick}
+                    handleAddClick={handleAddClick}
+                    clothingItems={clothingItems}
+                    handleUserSignout={handleUserSignout}
+                    handleEditClick={handleEditClick}
+                  />
+                  /* </ProtectedRoute> */
                 }
               />
             </Routes>
@@ -271,6 +300,13 @@ function App() {
               isOpen={activeModal === "registerModal"}
               onClose={closeActiveModal}
               handleSignup={handleSignup}
+            />
+          )}
+          {activeModal === "editProfileModal" && (
+            <EditProfileModal
+              isOpen={activeModal === "editProfileModal"}
+              onClose={closeActiveModal}
+              handleEditProfile={handleEditProfile}
             />
           )}
         </CurrentUserContext.Provider>

@@ -37,4 +37,15 @@ const getUserInfo = (token) => {
   }).then(checkResponse);
 };
 
-export { userSignUp, userSignin, getUserInfo };
+function userEdit({ name, avatar }) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "Patch",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then(checkResponse);
+}
+
+export { userSignUp, userSignin, getUserInfo, userEdit };

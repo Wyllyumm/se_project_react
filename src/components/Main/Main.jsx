@@ -23,20 +23,23 @@ function Main({ weatherData, handleCardClick, clothingItems, handleLike }) {
           to wear
         </p>
         <ul className="cards__list">
-          {defaultClothes
-            /*.filter((item) => {
-              return item.weather === weatherData.type;
-            })*/
-            .map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onCardClick={handleCardClick}
-                  onCardLike={handleLike}
-                />
-              );
-            })}
+          {
+            /*defaultClothes */
+            clothingItems
+              .filter((item) => {
+                return item.weather === weatherData.type;
+              })
+              .map((item) => {
+                return (
+                  <ItemCard
+                    key={item._id}
+                    item={item}
+                    onCardClick={handleCardClick}
+                    onCardLike={handleLike}
+                  />
+                );
+              })
+          }
         </ul>
       </section>
     </main>

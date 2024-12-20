@@ -29,7 +29,7 @@ const LoginModal = ({ onClose, isOpen, handleLogin }) => {
   };
 
   function resetUserForm() {
-    setName("");
+    setPassword("");
     setEmail("");
   }
 

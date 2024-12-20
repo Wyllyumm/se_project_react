@@ -1,4 +1,5 @@
 import { json } from "react-router-dom";
+import { getToken } from "./token";
 
 const baseUrl = "http://localhost:3001";
 
@@ -9,6 +10,8 @@ const checkResponse = (res) => {
   return Promise.reject(`Error: ${res.status}`);
 };
 
+const token = getToken();
+
 function getItems() {
   return fetch(`${baseUrl}/items`, {
     headers: {
@@ -18,6 +21,7 @@ function getItems() {
 }
 
 function addClothes({ name, weather, imageUrl }) {
+  /*const token = localStorage.getItem("jwt"); */
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
