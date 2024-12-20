@@ -1,7 +1,7 @@
 import "./ItemCard.css";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
-  const isLiked = item.likes.some((id) => id === currentUser._id);
+  /*const isLiked = item.likes.some((id) => id === currentUser._id);
   /*const itemLikeButtonClassName = `card__like-btn ${
     isOwner ? "" : "card__like-btn_hidden"
   }`; */
