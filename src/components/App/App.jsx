@@ -150,11 +150,11 @@ function App() {
         });
         closeActiveModal();
         resetUserForm();
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
       });
-    navigate("/profile");
   };
 
   const handleSignup = ({ name, avatar, email, password }) => {
@@ -165,10 +165,11 @@ function App() {
 
   const handleEditProfile = ({ name, avatar }) => {
     const token = getToken();
+
     auth
       .userEdit({ name, avatar }, token)
       .then((res) => {
-        setCurrentUser({ ...currentUser, ...res });
+        setCurrentUser(res);
         closeActiveModal();
       })
       .catch((err) => {
@@ -256,15 +257,15 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  /*<ProtectedRoute isLoggedIn={isLoggedIn}> */
-                  <Profile
-                    handleCardClick={handleCardClick}
-                    handleAddClick={handleAddClick}
-                    clothingItems={clothingItems}
-                    handleUserSignout={handleUserSignout}
-                    handleEditClick={handleEditClick}
-                  />
-                  /* </ProtectedRoute> */
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      handleCardClick={handleCardClick}
+                      handleAddClick={handleAddClick}
+                      clothingItems={clothingItems}
+                      handleUserSignout={handleUserSignout}
+                      handleEditClick={handleEditClick}
+                    />
+                  </ProtectedRoute>
                 }
               />
             </Routes>

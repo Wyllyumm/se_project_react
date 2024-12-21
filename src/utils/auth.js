@@ -1,4 +1,6 @@
 const baseUrl = "http://localhost:3001";
+/*import { getToken } from "./token";
+import token from "./api"; */
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -37,9 +39,9 @@ const getUserInfo = (token) => {
   }).then(checkResponse);
 };
 
-function userEdit({ name, avatar }) {
+function userEdit({ name, avatar }, token) {
   return fetch(`${baseUrl}/users/me`, {
-    method: "Patch",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

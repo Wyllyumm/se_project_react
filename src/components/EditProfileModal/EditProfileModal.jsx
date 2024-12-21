@@ -4,16 +4,16 @@ import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
 const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setNewName] = useState("");
-  const handleNewNameChange = (e) => {
+  const [name, setUserName] = useState("");
+  const handleUserNameChange = (e) => {
     console.log(e);
-    setNewName(e.target.value);
+    setUserName(e.target.value);
   };
 
-  const [avatar, setNewAvatar] = useState("");
-  const handleNewAvatarChange = (e) => {
+  const [avatar, setAvatar] = useState("");
+  const handleAvatarChange = (e) => {
     console.log(e);
-    setNewAvatar(e.target.value);
+    setAvatar(e.target.value);
   };
 
   const handleEditProfileSubmit = (e) => {
@@ -23,8 +23,8 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
 
   useEffect(() => {
     if (currentUser) {
-      setNewName(currentUser.name);
-      setNewAvatar(currentUser.avatar);
+      setUserName(currentUser?.name);
+      setAvatar(currentUser?.avatar);
     }
   });
 
@@ -45,7 +45,7 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
           id="name"
           placeholder="Name"
           value={name}
-          onChange={handleNewNameChange}
+          onChange={handleUserNameChange}
           required
         />
       </label>
@@ -57,7 +57,7 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
           id="avatar"
           placeholder="avatar"
           value={avatar}
-          onChange={handleNewAvatarChange}
+          onChange={handleAvatarChange}
           required
         />
       </label>

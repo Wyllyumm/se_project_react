@@ -50,9 +50,7 @@ function Header({
                     className="header__avatar"
                   />
                 ) : (
-                  <div className="header__avatar-null">
-                    {currentUser.name.charAt(0).toUpperCase()}
-                  </div>
+                  <div className="header__avatar-null">{currentUser.name}</div>
                 )}
               </div>
             </Link>

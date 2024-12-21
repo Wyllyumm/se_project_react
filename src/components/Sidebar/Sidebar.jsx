@@ -14,9 +14,7 @@ function Sidebar({ handleUserSignout, handleEditClick }) {
           className="header__avatar"
         />
       ) : (
-        <div className="header__avatar-null">
-          {currentUser.name.charAt(0).toUpperCase()}
-        </div>
+        <div className="header__avatar-null">{currentUser.name}</div>
       )}
       <p className="sidebar__username">{currentUser?.name}</p>
       <button
