@@ -6,7 +6,7 @@ import { clothingItems } from "../../utils/constants";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../Contexts/CurrentTemperatureUnitContext";
 
-function Main({ weatherData, handleCardClick, clothingItems, handleLike }) {
+function Main({ weatherData, handleCardClick, clothingItems, handleCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
   const tempUnit = weatherData?.temp?.[currentTemperatureUnit] || 999;
@@ -35,7 +35,7 @@ function Main({ weatherData, handleCardClick, clothingItems, handleLike }) {
                     key={item._id}
                     item={item}
                     onCardClick={handleCardClick}
-                    onCardLike={handleLike}
+                    onCardLike={handleCardLike}
                   />
                 );
               })

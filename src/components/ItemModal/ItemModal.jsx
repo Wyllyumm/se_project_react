@@ -6,10 +6,10 @@ import "./ItemModal.css";
 function ItemModal({ isOpen, card, handleCloseClick, handleDeleteClick }) {
   const { currentUser } = useContext(CurrentUserContext);
   /* const isOwner = currentUser && currentUser._id === card?.owner; */
-  /*const isOwner = card?.owner === currentUser._id;
+  const isOwner = card?.owner === currentUser._id;
   const itemDeleteButtonClassName = `modal__delete ${
     isOwner ? "" : "modal__delete-button_hidden"
-  }`; */
+  }`;
 
   return (
     <div className={`modal ${isOpen && "modal__opened"}`}>
@@ -25,7 +25,7 @@ function ItemModal({ isOpen, card, handleCloseClick, handleDeleteClick }) {
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>
         <button
-          className="itemDeleteButtonClassName"
+          className={itemDeleteButtonClassName}
           onClick={handleDeleteClick}
         >
           {""}

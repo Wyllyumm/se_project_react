@@ -88,27 +88,28 @@ function App() {
       });
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
-    const token = localStorage.getItem("jwt");
+  const handleCardLike = ({ _id, isLiked }) => {
+    const token = getToken();
+
     // Check if this card is not currently liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
-        api
-          // the first argument is the card's id
-          .addCardLike(id, token)
+        /*api */
+        // the first argument is the card's id
+        addCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((items) =>
-              items.map((item) => (item._id === id ? updatedCard : item))
+              items.map((item) => (item._id === _id ? updatedCard.item : item))
             );
           })
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
-        api
-          // the first argument is the card's id
-          .removeCardLike(id, token)
+        /* api */
+        // the first argument is the card's id
+        removeCardLike(_id, token)
           .then((updatedCard) => {
             setClothingItems((items) =>
-              items.map((item) => (item._id === id ? updatedCard : item))
+              items.map((item) => (item._id === _id ? updatedCard.item : item))
             );
           })
           .catch((err) => console.log(err));
@@ -249,7 +250,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
-                    handleLike={handleCardLike}
+                    handleCardLike={handleCardLike}
                     isLoggedIn={isLoggedIn}
                   />
                 }

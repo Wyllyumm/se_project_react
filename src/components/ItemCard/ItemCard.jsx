@@ -6,7 +6,7 @@ import "./ItemCard.css";
 function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  /*const isLiked = item.likes.some((id) => id === currentUser?._id);*/
+  const isLiked = item.likes.some((id) => id === currentUser?._id);
   const isOwner = item.owner === currentUser?._id;
   const itemLikeButtonClassName = `card__like-btn ${
     isOwner ? "" : "card__like-btn_hidden"
@@ -16,7 +16,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
   };
 
   const handleLike = () => {
-    onCardLike(item);
+    onCardLike({ _id: item._id, isLiked });
   };
 
   return (
@@ -28,7 +28,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
         className="card__image"
       />
-      <button className={itemLikeButtonClassName}></button>
+      <button onClick={handleLike} className={itemLikeButtonClassName}></button>
     </li>
   );
 }
