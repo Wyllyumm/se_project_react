@@ -15,7 +15,9 @@ Currently, two official plugins are available:
 -With the connection to the backend database, the improved functionality of the website is able to detect if an email has already been used, if a password is incorret, and even detect whether a user is the owner of an item added on webpage.
 -Users are able to like/unlike and delete items based on whether they are the owner of a clothing item as well.
 
+Link to express backend database: https://github.com/Wyllyumm/se_project_express
 <img width="1280" alt="Screen Shot 2024-10-03 at 5 28 03 PM" src="https://github.com/user-attachments/assets/8c583078-6936-449b-9058-950dfd070403">
 <img width="1280" alt="Screen Shot 2024-10-03 at 5 23 28 PM" src="https://github.com/user-attachments/assets/2d1a41ee-97f0-41d7-b76d-6c4caec1090f">
-![FAB61B0C-DBF7-4FA1-A100-9A26035C6A01_1_102_a](https://github.com/user-attachments/assets/bd8b1775-dc69-473a-ad2c-fbeca85be9c2)
+https://drive.google.com/file/d/17kAcumGSPx7Luipp9AvfMtmjykKfLNob/view?usp=sharing
+
 
