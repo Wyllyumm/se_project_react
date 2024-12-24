@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, handleSignup, handleLoginClick }) => {
+const RegisterModal = ({
+  isOpen,
+  onClose,
+  handleSignup,
+  handleLoginClick,
+  isLoading,
+}) => {
   const [buttonIsActive, setButtonIsActive] = useState(false);
   const signupSubmitBtnClassName = buttonIsActive
     ? "modal__submit modal__submit_signup_active"
@@ -47,7 +53,7 @@ const RegisterModal = ({ isOpen, onClose, handleSignup, handleLoginClick }) => {
   return (
     <ModalWithForm
       title="Sign up"
-      buttonText="next"
+      buttonText={isLoading ? "Signing up..." : "next"}
       /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}

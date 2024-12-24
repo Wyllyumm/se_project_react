@@ -27,7 +27,7 @@ import {
   userEdit,
 } from "../../utils/auth";
 import { setToken, getToken, removeToken } from "../../utils/token";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
@@ -112,74 +112,86 @@ function App() {
               items.map((item) => (item._id === _id ? updatedCard.item : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.error(err);
+          });
   };
 
   const closeActiveModal = () => {
     setActiveModal("");
   };
 
-  const onAddItem = (item, formReset) => {
-    addClothes(item)
-      .then((item) => {
+  function handleAllFormSubmit(request) {
+    // start loading
+    setIsLoading(true);
+    request()
+      // we need to close only in `then`
+      .then(closeActiveModal())
+      // we need to catch possible errors
+      // console.error is used to handle errors if you don’t have any other ways for that
+      .catch(console.error)
+      // and in finally we need to stop loading
+      .finally(() => setIsLoading(false));
+  }
+
+  const onAddItem = (item, resetForm) => {
+    function makeRequest() {
+      return addClothes(item).then((item) => {
         setClothingItems([
           item.data,
           ...clothingItems,
         ]); /* using cmd + p in console we can see what needs to be added in "setClothingItems" params and attach it to the end of item res to fix additem issues */
-        closeActiveModal();
         resetForm();
-      })
-      .catch((err) => {
-        console.error(err);
       });
+    }
+    handleAllFormSubmit(makeRequest);
   };
 
   const handleLogin = ({ email, password, name, avatar }, resetUserForm) => {
     if (!email || !password) {
       return;
     }
-    setIsLoading(true);
-    auth
-      .userSignin({ email, password })
+    function makeRequest() {
+      return auth
+        .userSignin({ email, password })
 
-      .then((res) => {
-        setToken(res.token);
-        setIsLoggedIn(true);
-        auth.getUserInfo(res.token).then((user) => {
-          setCurrentUser({
-            name: user.name,
-            email: user.email,
-            _id: user._id,
-            avatar: user.avatar,
-          }); /* using cmd + p in console we can see what needs to be added in "setCurrentUser" params and attach it to the end of user res to fix login issues */
+        .then((res) => {
+          setToken(res.token);
+          setIsLoggedIn(true);
+          auth.getUserInfo(res.token).then((user) => {
+            setCurrentUser({
+              name: user.name,
+              email: user.email,
+              _id: user._id,
+              avatar: user.avatar,
+            }); /* using cmd + p in console we can see what needs to be added in "setCurrentUser" params and attach it to the end of user res to fix login issues */
+          });
+          resetUserForm();
+          navigate("/profile");
         });
-        closeActiveModal();
-        resetUserForm();
-        navigate("/profile");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }
+    handleAllFormSubmit(makeRequest);
   };
 
   const handleSignup = ({ name, avatar, email, password }) => {
-    auth.userSignUp({ name, avatar, email, password }).then(() => {
-      handleLogin({ email, password });
-    });
+    function makeRequest() {
+      return auth.userSignUp({ name, avatar, email, password }).then(() => {
+        handleLogin({ email, password });
+      });
+    }
+    handleAllFormSubmit(makeRequest);
   };
 
   const handleEditProfile = ({ name, avatar }) => {
-    const token = getToken();
+    function makeRequest() {
+      const token = getToken();
 
-    auth
-      .userEdit({ name, avatar }, token)
-      .then((res) => {
+      return auth.userEdit({ name, avatar }, token).then((res) => {
         setCurrentUser(res);
         closeActiveModal();
-      })
-      .catch((err) => {
-        console.error(err);
       });
+    }
+    handleAllFormSubmit(makeRequest);
   };
 
   const handleUserSignout = () => {
@@ -231,6 +243,44 @@ function App() {
       })
       .catch(() => setIsLoggedIn(false));
   }, []);
+
+  useEffect(() => {
+    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
+
+    const handleEscClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.key === "Escape" || e.key === "Esc") {
+        e.preventDefault();
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      /* after completion remove the event listener */
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]); // watch activeModal here
+
+  useEffect(() => {
+    if (!activeModal) return; // stop the effect not to add the listener if there is no active modal
+
+    const handleClickToClose = (e) => {
+      // define the function inside useEffect not to lose the reference on rerendering
+      if (e.target.className === "modal__opened") {
+        e.preventDefault();
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickToClose);
+
+    return () => {
+      /* after completion remove the event listener */
+      document.removeEventListener("mousedown", handleClickToClose);
+    };
+  }, [activeModal]);
 
   return (
     <div className="page">
@@ -284,6 +334,7 @@ function App() {
               isOpen={activeModal === "add-garment"}
               onAddItem={onAddItem}
               onClose={closeActiveModal}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "preview" && (
@@ -301,6 +352,7 @@ function App() {
               onClose={closeActiveModal}
               handleLogin={handleLogin}
               handleSignupClick={handleSignupClick}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "registerModal" && (
@@ -309,6 +361,7 @@ function App() {
               onClose={closeActiveModal}
               handleSignup={handleSignup}
               handleLoginClick={handleLoginClick}
+              isLoading={isLoading}
             />
           )}
           {activeModal === "editProfileModal" && (
@@ -316,6 +369,7 @@ function App() {
               isOpen={activeModal === "editProfileModal"}
               onClose={closeActiveModal}
               handleEditProfile={handleEditProfile}
+              isLoading={isLoading}
             />
           )}
         </CurrentUserContext.Provider>

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./LoginModal.css";
 
-const LoginModal = ({ onClose, isOpen, handleLogin, handleSignupClick }) => {
+const LoginModal = ({
+  onClose,
+  isOpen,
+  handleLogin,
+  handleSignupClick,
+  isLoading,
+}) => {
   /* const [data, setData] = useState({ email: "", password: "" }); */
   const [buttonIsActive, setButtonIsActive] = useState(false);
 
@@ -43,7 +48,7 @@ const LoginModal = ({ onClose, isOpen, handleLogin, handleSignupClick }) => {
   return (
     <ModalWithForm
       title="Log in"
-      buttonText="Log In"
+      buttonText={isLoading ? "Logging In..." : "Log In"}
       /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}

@@ -2,8 +2,13 @@ import { useState, useContext, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
-const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
-  const currentUser = useContext(CurrentUserContext);
+const EditProfileModal = ({
+  onClose,
+  isOpen,
+  handleEditProfile,
+  isLoading,
+}) => {
+  const { currentUser } = useContext(CurrentUserContext);
   const [buttonIsActive, setButtonIsActive] = useState(false);
 
   const profileSubmitBtnClassName = buttonIsActive
@@ -45,7 +50,7 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
   return (
     <ModalWithForm
       title="Change Profile Data"
-      buttonText="Save Changes"
+      buttonText={isLoading ? "Saving changes..." : "Save changes"}
       /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}
