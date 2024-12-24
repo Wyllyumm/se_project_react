@@ -2,6 +2,7 @@
   padding: 0;
   overflow: hidden;
   max-width: 498px;
+  max-height: 610px;
   position: relative;
 }
 
@@ -21,7 +22,7 @@
 
 .modal__delete {
   position: absolute;
-  bottom: 90px;
+  bottom: 68px;
   right: 32px;
   margin: 0;
   background: none;
@@ -37,4 +38,8 @@
 
 .modal__delete-button_hidden {
   visibility: hidden;
+}
+
+.modal__image {
+  max-height: 498px;
 }

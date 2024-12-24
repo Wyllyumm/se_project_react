@@ -144,3 +144,49 @@
   line-height: 20px;
   text-align: center;
 }
+
+.modal__submit_profile {
+  margin-top: 32px;
+}
+
+.modal__submit_profile_active {
+  margin-top: 32px;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.modal__submit_item_active {
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.modal__submit_login {
+  margin-top: 32px;
+}
+
+.modal__submit_login_active {
+  margin-top: 32px;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.modal__submit_siginup {
+  margin-top: 32px;
+}
+
+.modal__submit_signup_active {
+  margin-top: 32px;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.modal__or-btn {
+  position: absolute;
+  bottom: 44px;
+  left: 162px;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}

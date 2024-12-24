@@ -7,7 +7,16 @@ function ModalWithForm({
   isOpen,
   handleCloseClick,
   onSubmit,
+  buttonClass,
 }) {
+  /* const submitButtonClassName = `modalsubmit ${
+    novalidate ? "modal__submit" : ""
+  }`; */
+
+  /*const submitButtonClassName = novalidate
+    ? "modal__submit modal__submit_profile"
+    : "modal__submit modal__submit_profile_active"; */
+
   return (
     <div className={`modal ${isOpen && "modal__opened"}`}>
       <div className="modal__content">
@@ -19,7 +28,7 @@ function ModalWithForm({
         ></button>
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="modal__submit">
+          <button type="submit" className={buttonClass}>
             {buttonText}
           </button>
         </form>

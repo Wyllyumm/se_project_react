@@ -4,6 +4,12 @@ import { CurrentUserContext } from "../../Contexts/CurrentUserContext";
 
 const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
   const currentUser = useContext(CurrentUserContext);
+  const [buttonIsActive, setButtonIsActive] = useState(false);
+
+  const profileSubmitBtnClassName = buttonIsActive
+    ? "modal__submit modal__submit_profile_active"
+    : "modal__submit modal__submit_profile";
+
   const [name, setUserName] = useState("");
   const handleUserNameChange = (e) => {
     console.log(e);
@@ -28,6 +34,14 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (name && avatar) {
+      setButtonIsActive(true);
+    } else {
+      setButtonIsActive(false);
+    }
+  }, [name, avatar]);
+
   return (
     <ModalWithForm
       title="Change Profile Data"
@@ -36,6 +50,7 @@ const EditProfileModal = ({ onClose, isOpen, handleEditProfile }) => {
       isOpen={isOpen}
       handleCloseClick={onClose}
       onSubmit={handleEditProfileSubmit}
+      buttonClass={profileSubmitBtnClassName}
     >
       <label htmlFor="name" className="modal__label">
         Name{" "}

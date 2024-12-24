@@ -21,7 +21,7 @@ function getItems() {
 }
 
 function addClothes({ name, weather, imageUrl }) {
-  /*const token = localStorage.getItem("jwt"); */
+  /* const token = localStorage.getItem("jwt"); */
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -54,7 +54,7 @@ function addCardLike(_id, token) {
 
 function removeCardLike(_id, token) {
   return fetch(`${baseUrl}/items/${_id}/likes`, {
-    method: "PUT",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,

@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, handleSignup }) => {
+const RegisterModal = ({ isOpen, onClose, handleSignup, handleLoginClick }) => {
+  const [buttonIsActive, setButtonIsActive] = useState(false);
+  const signupSubmitBtnClassName = buttonIsActive
+    ? "modal__submit modal__submit_signup_active"
+    : "modal__submit modal__submit_siginup";
+
   const [name, setUsername] = useState("");
   const handleUsernameChange = (e) => {
     console.log(e);
@@ -31,14 +36,23 @@ const RegisterModal = ({ isOpen, onClose, handleSignup }) => {
     handleSignup({ email, password, name, avatar });
   };
 
+  useEffect(() => {
+    if (name && avatar && email && password) {
+      setButtonIsActive(true);
+    } else {
+      setButtonIsActive(false);
+    }
+  }, [name, avatar, email, password]);
+
   return (
     <ModalWithForm
       title="Sign up"
       buttonText="next"
-      /*activeModal={activeModal} convert to universal*/
+      /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}
       onSubmit={handleSignupSubmit}
+      buttonClass={signupSubmitBtnClassName}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}
@@ -88,6 +102,13 @@ const RegisterModal = ({ isOpen, onClose, handleSignup }) => {
           required
         />
       </label>
+      <button
+        onClick={handleLoginClick}
+        className="modal__or-btn"
+        type="button"
+      >
+        or login
+      </button>
     </ModalWithForm>
   );
 };

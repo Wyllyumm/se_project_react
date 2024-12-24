@@ -59,3 +59,30 @@
   font-weight: 700;
   line-height: 24px;
 }
+
+.header__non-member-btns {
+  gap: 20px;
+  display: flex;
+}
+
+.header__register {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+}
+
+.header__login {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+}

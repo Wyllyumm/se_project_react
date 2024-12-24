@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ onClose, onAddItem, isOpen }) => {
+  const [buttonIsActive, setButtonIsActive] = useState(false);
+
+  const addSubmitBtnClassName = buttonIsActive
+    ? "modal__submit modal__submit_item_active"
+    : "modal__submit";
+
   const [name, setName] = useState("");
   const handleNameChange = (e) => {
     console.log(e);
@@ -20,7 +26,7 @@ const AddItemModal = ({ onClose, onAddItem, isOpen }) => {
     setWeatherType(e.target.value);
   };
 
-  function formReset() {
+  function resetForm() {
     setName("");
     setUrl("");
     setWeatherType("");
@@ -28,17 +34,26 @@ const AddItemModal = ({ onClose, onAddItem, isOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather }, formReset);
+    onAddItem({ name, imageUrl, weather }, resetForm);
   };
+
+  useEffect(() => {
+    if (name && imageUrl && weather) {
+      setButtonIsActive(true);
+    } else {
+      setButtonIsActive(false);
+    }
+  }, [name, imageUrl, weather]);
 
   return (
     <ModalWithForm
       title="New garment"
       buttonText="Add garment"
-      /*activeModal={activeModal} convert to universal*/
+      /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}
       onSubmit={handleSubmit}
+      buttonClass={addSubmitBtnClassName}
     >
       <label htmlFor="name" className="modal__label">
         Name{" "}

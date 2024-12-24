@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 
-const LoginModal = ({ onClose, isOpen, handleLogin }) => {
+const LoginModal = ({ onClose, isOpen, handleLogin, handleSignupClick }) => {
   /* const [data, setData] = useState({ email: "", password: "" }); */
+  const [buttonIsActive, setButtonIsActive] = useState(false);
 
-  /*const handleUserChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({ ...prevData, [name]: value }));
-    console.log(e);
-  };*/
-
-  /*const handleUserChange = (e) => {
-    /*console.log(e); 
-    setData(e.target.value);
-  }; */
+  const loginSubmitBtnClassName = buttonIsActive
+    ? "modal__submit modal__submit_login_active"
+    : "modal__submit modal__submit_login";
 
   const [email, setEmail] = useState("");
   const handleEmailChange = (e) => {
@@ -38,14 +32,23 @@ const LoginModal = ({ onClose, isOpen, handleLogin }) => {
     handleLogin({ email, password }, resetUserForm);
   };
 
+  useEffect(() => {
+    if (email && password) {
+      setButtonIsActive(true);
+    } else {
+      setButtonIsActive(false);
+    }
+  }, [email, password]);
+
   return (
     <ModalWithForm
       title="Log in"
       buttonText="Log In"
-      /*activeModal={activeModal} convert to universal*/
+      /* activeModal={activeModal} convert to universal */
       isOpen={isOpen}
       handleCloseClick={onClose}
       onSubmit={handleUserSubmit}
+      buttonClass={loginSubmitBtnClassName}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}
@@ -71,6 +74,13 @@ const LoginModal = ({ onClose, isOpen, handleLogin }) => {
           required
         />
       </label>
+      <button
+        onClick={handleSignupClick}
+        className="modal__or-btn"
+        type="button"
+      >
+        or signup
+      </button>
     </ModalWithForm>
   );
 };

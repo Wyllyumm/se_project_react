@@ -122,9 +122,12 @@ function App() {
   const onAddItem = (item, formReset) => {
     addClothes(item)
       .then((item) => {
-        setClothingItems([item, ...clothingItems]);
+        setClothingItems([
+          item.data,
+          ...clothingItems,
+        ]); /* using cmd + p in console we can see what needs to be added in "setClothingItems" params and attach it to the end of item res to fix additem issues */
         closeActiveModal();
-        formReset();
+        resetForm();
       })
       .catch((err) => {
         console.error(err);
@@ -145,9 +148,10 @@ function App() {
         auth.getUserInfo(res.token).then((user) => {
           setCurrentUser({
             name: user.name,
-            /*avatar: user.avatar, */
             email: user.email,
-          });
+            _id: user._id,
+            avatar: user.avatar,
+          }); /* using cmd + p in console we can see what needs to be added in "setCurrentUser" params and attach it to the end of user res to fix login issues */
         });
         closeActiveModal();
         resetUserForm();
@@ -265,6 +269,7 @@ function App() {
                       clothingItems={clothingItems}
                       handleUserSignout={handleUserSignout}
                       handleEditClick={handleEditClick}
+                      handleCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
@@ -295,6 +300,7 @@ function App() {
               /*handleCloseClick={closeActiveModal} */
               onClose={closeActiveModal}
               handleLogin={handleLogin}
+              handleSignupClick={handleSignupClick}
             />
           )}
           {activeModal === "registerModal" && (
@@ -302,6 +308,7 @@ function App() {
               isOpen={activeModal === "registerModal"}
               onClose={closeActiveModal}
               handleSignup={handleSignup}
+              handleLoginClick={handleLoginClick}
             />
           )}
           {activeModal === "editProfileModal" && (

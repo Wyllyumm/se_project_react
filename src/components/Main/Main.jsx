@@ -10,10 +10,7 @@ function Main({ weatherData, handleCardClick, clothingItems, handleCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
   const tempUnit = weatherData?.temp?.[currentTemperatureUnit] || 999;
-  const defaultClothes = clothingItems.filter((item) => {
-    return item.weather === weatherData.type || weatherData.type === "";
-  });
-  console.log(clothingItems);
+
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
@@ -24,7 +21,7 @@ function Main({ weatherData, handleCardClick, clothingItems, handleCardLike }) {
         </p>
         <ul className="cards__list">
           {
-            /*defaultClothes */
+            /* defaultClothes */
             clothingItems
               .filter((item) => {
                 return item.weather === weatherData.type;

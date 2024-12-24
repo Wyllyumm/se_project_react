@@ -1,6 +1,4 @@
 const baseUrl = "http://localhost:3001";
-/*import { getToken } from "./token";
-import token from "./api"; */
 
 const checkResponse = (res) => {
   if (res.ok) {

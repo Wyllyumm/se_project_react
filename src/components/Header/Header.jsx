@@ -56,7 +56,7 @@ function Header({
             </Link>
           </>
         ) : (
-          <div className="header__auth-btns">
+          <div className="header__non-member-btns">
             <button
               onClick={handleRegisterClick}
               className="header__register"

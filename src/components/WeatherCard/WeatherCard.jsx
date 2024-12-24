@@ -13,7 +13,7 @@ function WeatherCard({ weatherData }) {
       option.condition === weatherData.condition
     );
   });
-  /*const weatherOptionUrl = filteredOptions[0]?.url;
+  /* const weatherOptionUrl = filteredOptions[0]?.url;
   const weatherOptionCondition = filteredOptions[0]?.condition; */
 
   let weatherOption;
