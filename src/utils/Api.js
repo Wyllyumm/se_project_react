@@ -1,7 +1,11 @@
 import { json } from "react-router-dom";
 import { getToken } from "./token";
 
-const baseUrl = "http://localhost:3001";
+/* const baseUrl = "http://localhost:3001"; */
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.idk-wtwr.mindhackers.org"
+    : "http://localhost:3001";
 
 function request(url, options) {
   return fetch(`${baseUrl}/${url}`, options).then(checkResponse);

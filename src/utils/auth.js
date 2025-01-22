@@ -1,5 +1,4 @@
-import { checkResponse, request } from "./Api";
-const baseUrl = "http://localhost:3001";
+import { request } from "./Api";
 
 function userSignUp({ name, avatar, email, password }) {
   return request(`signup`, {
