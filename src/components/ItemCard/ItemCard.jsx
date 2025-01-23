@@ -19,7 +19,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
       : isOwner && !isLiked
       ? "card__like-btn"
       : !isOwner
-      ? "card__like-btn_hidden"
+      ? "card__like-btn"
       : "";
 
   const handleCardClick = () => {
